@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.toxic.generate.tool.mapper.AutoDbInfoMapper">
+	<resultMap id="autoDbInfoResultMap" type="com.toxic.generate.tool.model.AutoDbInfo">
+        <result property="keyId" column="key_id"/>
+        <result property="dbUrl" column="db_url"/>
+        <result property="dbDriver" column="db_driver"/>
+        <result property="dbUserName" column="db_user_name"/>
+        <result property="dbPassWord" column="db_pass_word"/>
+        <result property="dbSchema" column="db_schema"/>
+        <result property="dbName" column="db_name"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="AutoDbInfoColumns">
+	    <![CDATA[
+		key_id,db_url,db_driver,db_user_name,db_pass_word,db_schema,db_name
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="keyId">
+    <![CDATA[
+        INSERT INTO auto_db_info (
+        	key_id ,
+        	db_url ,
+        	db_driver ,
+        	db_user_name ,
+        	db_pass_word ,
+        	db_schema ,
+        	db_name 
+        ) VALUES (
+        	#{keyId,jdbcType=VARCHAR},
+        	#{dbUrl,jdbcType=VARCHAR},
+        	#{dbDriver,jdbcType=VARCHAR},
+        	#{dbUserName,jdbcType=VARCHAR},
+        	#{dbPassWord,jdbcType=VARCHAR},
+        	#{dbSchema,jdbcType=VARCHAR},
+        	#{dbName,jdbcType=VARCHAR}
+        )
+    ]]>
+		<!--
+			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL 
+			DB2: order="BEFORE"" values nextval for sequenceName
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
+			SELECT sequenceName.nextval AS ID FROM DUAL 
+        </selectKey>
+		-->
+	</insert>
+    
+	<update id="update" >
+        UPDATE auto_db_info SET
+	        <if test="dbUrl!=null">
+	        db_url = #{dbUrl,jdbcType=VARCHAR} ,
+	        </if>
+	        <if test="dbDriver!=null">
+	        db_driver = #{dbDriver,jdbcType=VARCHAR} ,
+	        </if>
+	        <if test="dbUserName!=null">
+	        db_user_name = #{dbUserName,jdbcType=VARCHAR} ,
+	        </if>
+	        <if test="dbPassWord!=null">
+	        db_pass_word = #{dbPassWord,jdbcType=VARCHAR} ,
+	        </if>
+	        <if test="dbSchema!=null">
+	        db_schema = #{dbSchema,jdbcType=VARCHAR} ,
+	        </if>
+	        <if test="dbName!=null">
+	        db_name = #{dbName,jdbcType=VARCHAR} ,
+	        </if>
+        WHERE 
+	        key_id = #{keyId} 
+	</update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM auto_db_info WHERE
+        key_id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="autoDbInfoResultMap">
+		SELECT <include refid="AutoDbInfoColumns" />
+	    <![CDATA[
+		    FROM auto_db_info 
+	        WHERE 
+		        key_id = #{id} 
+	    ]]>
+	</select>
+	
+	<sql id="listAutoDbInfoWhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>      				
+	       	<if test="keyWord!=null and keyWord!=''">
+				AND (key_id like CONCAT(CONCAT('%', #{keyWord}),'%') or key_id like CONCAT(CONCAT('%', #{keyWord}),'%'))
+			</if>
+	       	<if test="keyId!=null and keyId!=''">
+				AND key_id = #{keyId}
+			</if>
+	       	<if test="dbUrl!=null and dbUrl!=''">
+				AND db_url = #{dbUrl}
+			</if>
+	       	<if test="dbDriver!=null and dbDriver!=''">
+				AND db_driver = #{dbDriver}
+			</if>
+	       	<if test="dbUserName!=null and dbUserName!=''">
+				AND db_user_name = #{dbUserName}
+			</if>
+	       	<if test="dbPassWord!=null and dbPassWord!=''">
+				AND db_pass_word = #{dbPassWord}
+			</if>
+	       	<if test="dbSchema!=null and dbSchema!=''">
+				AND db_schema = #{dbSchema}
+			</if>
+	       	<if test="dbName!=null and dbName!=''">
+				AND db_name = #{dbName}
+			</if>
+		</where>
+	</sql>
+		
+    <select id="getCountAutoDbInfo" resultType="int">
+        SELECT count(*) FROM auto_db_info 
+		<include refid="listAutoDbInfoWhere"/>
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="selectList" resultMap="autoDbInfoResultMap">
+    	SELECT <include refid="AutoDbInfoColumns" />
+	    FROM auto_db_info 
+		<include refid="listAutoDbInfoWhere"/>
+    </select>
+	<!--该方法适用于，获取的数据条数小于等于1 如有特殊需要自己实现-->
+	<select id="selectOne" resultMap="autoDbInfoResultMap">
+
+	</select>
+
+
+</mapper>
+

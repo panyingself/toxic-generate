@@ -1,0 +1,146 @@
+<!--
+  ~ Copyright (c) 2018. Toxic
+  -->
+
+<#assign className = table.className>
+<#assign classNameFirstLower = table.classNameFirstLower>  
+<#assign classNameLowerCase = className?lower_case>  
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<#macro mapperEl value >${r"#{"}${value}}</#macro>
+<#macro namespace>${className}.</#macro>
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="${basepackage}.service.dao.${className}Mapper">
+	<resultMap id="${classNameFirstLower}ResultMap" type="${basepackage}.service.bean.${className}">
+        <#list table.columns as column>
+        <result property="${column.columnNameLower}" column="${column.sqlName}"/>
+		</#list>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="${className}Columns">
+	    <![CDATA[
+		<#list table.columns as column>${column.sqlName}<#if column_has_next>,</#if></#list>
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="${table.idColumn.columnNameFirstLower}">
+		<#if dbType == "oracle">
+		<#list table.columns as column>
+			<#if column.sqlName?upper_case == "KEY_ID" >
+        	<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="keyId">
+			SELECT SEQ_${table.sqlName?upper_case}.nextval AS ID FROM DUAL 
+        	</selectKey>
+        	</#if>
+        </#list>
+       	</#if>
+    <![CDATA[
+        INSERT INTO ${table.sqlName} (
+        <#list table.columns as column>
+        	${column.sqlName} <#if column_has_next>,</#if>
+        </#list>
+        ) VALUES (
+        <#list table.columns as column>
+        	<#if column.sqlName?upper_case == "MODIFY_DATE_TIME" || column.sqlName?upper_case == "CREATE_DATE_TIME" >
+        	
+        	<#if dbType=="oracle">sysdate<#else>now()</#if><#if column_has_next>,</#if>
+        	<#elseif column.sqlName?upper_case == "DELETE_FLAG">
+        	'1'<#if column_has_next>,</#if>
+        	<#else>
+        	<@mapperEl column.columnNameFirstLower+",jdbcType="+column.jdbcSqlTypeName /><#if column_has_next>,</#if>
+        	</#if>
+        </#list>        
+        )
+    ]]>
+		<!--
+			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL 
+			DB2: order="BEFORE"" values nextval for sequenceName
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
+			SELECT sequenceName.nextval AS ID FROM DUAL 
+        </selectKey>
+		-->
+	</insert>
+    
+	<update id="update" >
+        UPDATE ${table.sqlName} SET
+	        <#list table.notPkColumns as column>
+	        <#if column.sqlName?upper_case != "CREATE_USER_ID" && column.sqlName?upper_case != "CREATE_DATE_TIME" >
+	        <#if column.sqlName?upper_case == "MODIFY_DATE_TIME" >
+	         ${column.sqlName} = <#if dbType=="oracle">sysdate<#else>now()</#if>,
+	        <#elseif column.sqlName?upper_case == "DELETE_FLAG" >
+	        ${column.sqlName} = '1' 
+	        <#else>
+	        <if test="${column.columnNameFirstLower}!=null">
+	        ${column.sqlName} = <@mapperEl column.columnNameFirstLower+",jdbcType="+column.jdbcSqlTypeName/> ,
+	        </if>
+	        </#if>
+	        </#if>
+	        </#list>
+        WHERE 
+        	<#list table.compositeIdColumns as column>
+	        ${column.sqlName} = <@mapperEl column.columnNameLower/> <#if column_has_next> AND </#if>
+	        </#list>
+	</update>
+
+    <delete id="delete">
+    <![CDATA[
+        DELETE FROM ${table.sqlName} WHERE
+        <#list table.compositeIdColumns as column>
+        ${column.sqlName} = <@mapperEl 'id'/> <#if column_has_next> AND </#if>
+		</#list>
+    ]]>
+    </delete>
+    
+    <select id="getById" resultMap="${classNameFirstLower}ResultMap">
+		SELECT <include refid="${className}Columns" />
+	    <![CDATA[
+		    FROM ${table.sqlName} 
+	        WHERE 
+				<#list table.compositeIdColumns as column>
+		        ${column.sqlName} = <@mapperEl 'id'/> <#if column_has_next> AND </#if>
+		        </#list>
+	    ]]>
+	</select>
+	
+	<sql id="list${className}Where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>      				
+	       	<#list table.columns as column>
+	       	<#if column_index == 0 >
+	       	<if test="keyWord!=null and keyWord!=''">
+				AND (${column.sqlName} <#noparse>like CONCAT(CONCAT('%', #{keyWord}),'%')</#noparse> or ${column.sqlName} <#noparse>like CONCAT(CONCAT('%', #{keyWord}),'%'))</#noparse>
+			</if>
+			</#if>
+	       	<if test="${column.columnNameFirstLower}!=null and ${column.columnNameFirstLower}!=''">
+				AND ${column.sqlName} = <@mapperEl column.columnNameFirstLower/>
+			</if>
+	       	</#list>		
+		</where>
+	</sql>
+		
+    <select id="getCount${className}" resultType="int">
+        SELECT count(*) FROM ${table.sqlName} 
+		<include refid="list${className}Where"/>
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="selectList" resultMap="${classNameFirstLower}ResultMap">
+    	SELECT <include refid="${className}Columns" />
+	    FROM ${table.sqlName} 
+		<include refid="list${className}Where"/>
+    </select>
+	<!--该方法适用于，获取的数据条数小于等于1 如有特殊需要自己实现-->
+	<select id="selectOne" resultMap="${classNameFirstLower}ResultMap">
+
+	</select>
+
+
+</mapper>
+
