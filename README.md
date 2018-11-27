@@ -32,10 +32,16 @@ web工程作为api入口，主要对外提供http服务
 工具模板对应模板生成的内容大致如下：
 
 对应table的mapper.xml文件
+
 对应table通用curd的dao文件，包含分页查询以及getById
+
 对应table的model、query对象
+
 对应table通用curd的service、serviceImpl文件，包含分页查询以及getById
+
 对应table通用curd的business文件，包含分页查询以及getById
+
 对应table通用curd的controller文件，包含分页查询以及getById
+
 以及对应的test类
 
