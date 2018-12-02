@@ -7,11 +7,6 @@ package ${basepackage}.model;
 
 import java.io.Serializable;
 
-import com.reapal.common.util.SpringUtils;
-import com.reapal.common.util.StringUtils;
-import com.reapal.payframework.core.cache.ParameterCache;
-import com.reapal.payframework.core.cache.DeptCache;
-
 public class ${className} implements Serializable {
     private static final long serialVersionUID = 3148176768559230877L;
     

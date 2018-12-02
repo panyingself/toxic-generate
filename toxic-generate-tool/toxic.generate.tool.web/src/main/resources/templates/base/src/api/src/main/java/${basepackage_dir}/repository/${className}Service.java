@@ -6,13 +6,11 @@ package ${basepackage}.repository;
 
 
 import java.util.List;
-import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
-import com.reapal.common.page.Page;
 import ${basepackage}.model.*;
 import ${basepackage}.model.query.*;
+import com.toxic.auth.service.base.BaseService;
 
-@Service
 public interface ${className}Service extends BaseService<${className}, String>{
 
 	List<${className}> queryList(${className}Query ${classNameFirstLower}Query);

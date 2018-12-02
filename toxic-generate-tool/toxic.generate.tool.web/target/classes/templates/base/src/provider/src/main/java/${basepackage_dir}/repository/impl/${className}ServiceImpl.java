@@ -5,18 +5,19 @@
 package ${basepackage}.repository.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
-import com.reapal.common.page.Page;
-import ${basepackage}.repository.*;
+import com.toxic.auth.page.Page;
+import com.toxic.auth.service.impl.base.BaseServiceImpl;
+import ${basepackage}.model.*;
 import ${basepackage}.mapper.*;
 import ${basepackage}.model.*;
 import ${basepackage}.model.query.*;
 
 @Service
-public class ${className}ServiceImpl implements ${className}Service {
-	@Autowired
+public class ${className}ServiceImpl extends BaseServiceImpl<${className},Integer> implements ${className}Service {
+	@Resource
 	private ${className}Mapper ${classNameFirstLower}Mapper;
 
 

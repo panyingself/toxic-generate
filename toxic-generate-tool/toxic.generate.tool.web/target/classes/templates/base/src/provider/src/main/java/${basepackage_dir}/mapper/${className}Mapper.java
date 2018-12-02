@@ -4,7 +4,6 @@
 <#assign classNameLowerCase = className?lower_case>
 package ${basepackage}.mapper;
 
-import com.reapal.common.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import ${basepackage}.model.*;
 

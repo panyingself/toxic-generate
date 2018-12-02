@@ -133,7 +133,7 @@
 		<include refid="list${className}Where"/>
     </select>
 	<!--该方法适用于，获取的数据条数小于等于1 如有特殊需要自己实现-->
-	<select id="selectOne" resultMap="identifyCertResultMap">
+	<select id="selectOne" resultMap="${classNameFirstLower}ResultMap">
 
 	</select>
 

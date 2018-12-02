@@ -18,7 +18,7 @@ public class CodeConfig implements Serializable {
 
     /** 配置属性 */
     private String namespace="pages";	//jsp namespace: web/${namespace}/${className}/list.jsp
-    private String tableRemovePrefixes="tb,sys,cm,pf,sa,tf,kf,be,su,mr,df,etc,ft";	//需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_
+    private String tableRemovePrefixes="tb,sys,cm,pf,sa,tf,kf,be,su,mr,df,etc,ft,t,t_";	//需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_
 
 
     private String basepackage;

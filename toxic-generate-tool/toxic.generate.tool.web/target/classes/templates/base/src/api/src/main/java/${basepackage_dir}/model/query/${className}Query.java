@@ -6,8 +6,6 @@
 package ${basepackage}.model.query;
 
 import ${basepackage}.model.${className};
-import ${basepackage}.model.*;
-
 
 public class ${className}Query extends ${className} {
 	private static final long serialVersionUID = 1L;
