@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>toxic.generate.tool.web</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!--springboot start-->
@@ -50,7 +51,9 @@
         <dependency>
             <groupId>cn.org.rapid_framework</groupId>
             <artifactId>rapid_farmework</artifactId>
+            <scope>system</scope>
             <version>3.9.3.20100923</version>
+            <systemPath>/Users/panying/home/common/maven-repository/cn/org/rapid_framework/rapid_farmework/3.9.3.20100923/rapid_farmework-3.9.3.20100923.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -108,13 +111,55 @@
             <artifactId>toxic.generate.tool.provider</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-devtools</artifactId>-->
+            <!--<version>2.0.4.RELEASE</version>-->
+        <!--</dependency>-->
+
+
     </dependencies>
 
     <build>
+        <finalName>toxic-generate-tool-web</finalName>
         <plugins>
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<mainClass>com.toxic.generate.tool.GenerateApplication</mainClass>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib</classpathPrefix>
+                            <mainClass>com.toxic.generate.tool.GenerateApplication</mainClass>
+                        </manifest>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>

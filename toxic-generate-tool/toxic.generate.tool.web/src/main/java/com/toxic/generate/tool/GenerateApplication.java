@@ -6,6 +6,8 @@ package com.toxic.generate.tool;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -14,8 +16,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @EnableTransactionManagement
 @SpringBootApplication
-public class GenerateApplication {
+public class GenerateApplication extends SpringBootServletInitializer{
+
     public static void main(String[] args) {
         SpringApplication.run(GenerateApplication.class, args);
     }
+
+    @Override//为了打包springboot项目
+    protected SpringApplicationBuilder configure(
+            SpringApplicationBuilder builder) {
+        return builder.sources(this.getClass());
+    }
+
 }
