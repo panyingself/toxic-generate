@@ -53,7 +53,8 @@
             <artifactId>rapid_farmework</artifactId>
             <scope>system</scope>
             <version>3.9.3.20100923</version>
-            <systemPath>/Users/panying/home/common/maven-repository/cn/org/rapid_framework/rapid_farmework/3.9.3.20100923/rapid_farmework-3.9.3.20100923.jar</systemPath>
+            <systemPath> G:/maven/repository/cn/org/rapid_framework/rapid_farmework/3.9.3.20100923/rapid_farmework-3.9.3.20100923.jar</systemPath>
+            <!--<systemPath>/Users/panying/home/common/maven-repository/cn/org/rapid_framework/rapid_farmework/3.9.3.20100923/rapid_farmework-3.9.3.20100923.jar</systemPath>-->
         </dependency>
 
         <dependency>

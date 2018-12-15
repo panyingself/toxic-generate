@@ -141,6 +141,10 @@
 
 	</select>
 
+	<select id="findAllCount" resultType="int">
+	select count(*)
+	from ${table.sqlName}
+	</select>
 
 </mapper>
 

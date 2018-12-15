@@ -15,6 +15,7 @@ import ${basepackage}.service.bean.query.*;
 
 public interface ${className}Service extends BaseService<${className}, String>{
 
-	List<${className}> queryList(${className}Query ${classNameFirstLower}Query);
+		List<${className}> findAll(${className}Query ${classNameFirstLower}Query);
 
+		List<${className}> findAllByPage(BasicQuery basicQuery);
 }

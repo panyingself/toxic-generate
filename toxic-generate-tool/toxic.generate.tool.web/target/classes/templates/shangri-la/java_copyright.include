@@ -1,5 +1,5 @@
 /*
- * Web Site: http://www.reapal.com
- * Since 2014 <#if now??>- ${now?string('yyyy')}</#if>
+ * Web Site: http://www.shangri-la.com
+ * Since 2018 <#if now??>- ${now?string('yyyy')}</#if>
  */
 

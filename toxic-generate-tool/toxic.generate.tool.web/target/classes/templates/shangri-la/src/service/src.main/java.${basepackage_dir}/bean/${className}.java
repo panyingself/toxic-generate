@@ -19,9 +19,6 @@ public class ${className} implements Serializable {
 <#macro generateFields>
 
 	<#list table.columns as column>
-	/*
- * Copyright (c) 2018. Toxic
- */
 
 	/** ${column.columnAlias} */
 	private ${column.javaType} ${column.columnNameLower};

@@ -18,4 +18,8 @@ public interface BaseMapper<T> {
     T selectOne(T var1);
 
     List<T> selectList(T var1);
+
+    List<T> selectAllByPage(T var1);
+
+    int findAllCount();
 }

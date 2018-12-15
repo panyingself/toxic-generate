@@ -5,71 +5,35 @@
 <#assign classNameLowerCase = className?lower_case>   
 <#assign pkJavaType = table.idColumn.javaType>   
 
-package ${basepackage}.business;
+package ${basepackage}.biz;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import java.util.List;
-
-import com.reapal.common.model.ResultList;
-import com.reapal.common.page.Page;
 import ${basepackage}.bean.${className};
-import ${basepackage}.service.${className}Service;
-import ${basepackage}.bean.query.${className}Query;
+import com.maxim.anepoch.common.base.ListResult;
 
-@Component
-public class ${className}Business {
+public interface ${className}biz {
+		/**
+		 * 新增${className}
+		 *
+		 * @param ${classNameFirstLower}
+		 * @return
+		 */
+		boolean save(${className} ${classNameFirstLower});
 
-	@Reference(timeout = 3000)
-	private ${className}Service ${classNameFirstLower}Service;
-	
-	/*
- * Copyright (c) 2018. Toxic
- */
+		/**
+		 * 修改${className}
+		 *
+		 * @param ${classNameFirstLower}
+		 * @return
+		 */
+		boolean edit(${className} ${classNameFirstLower});
 
-	/**
-	 * 显示列表
-	 */
-	public ResultList query${className}(${className}Query ${classNameFirstLower}Query,Page page){
-		return ${classNameFirstLower}Service.query${className}(${classNameFirstLower}Query,page);
-	}
-	
-	
-	/**
-	 * 保存信息
-	 */
-	public void insert${className}(${className} ${classNameFirstLower}){
-		if(${classNameFirstLower}.getKeyId()==null || ${classNameFirstLower}.getKeyId().intValue()==0){	
-			${classNameFirstLower}Service.insert${className}(${classNameFirstLower});
-		}
-	}
-	
-	
-	/**
-	 * 修改信息
-	 */
-	public String update${className}(${className} ${classNameFirstLower}){
-		if(${classNameFirstLower}.getKeyId()!=null){
-			${classNameFirstLower}Service.update${className}(${classNameFirstLower});
-	  }
-		
-		return "";
-	}
-	
-	/**
-	 * 得到对象
-	 */
-	public ${className} get${className}ById(Integer ${classNameFirstLower}Id){
-        return ${classNameFirstLower}Service.get${className}ById(${classNameFirstLower}Id);
-  }
-  
-	/**
-	 * 删除指定信息
-	 */
-	public void delete${className}(java.lang.Integer id){
-		${classNameFirstLower}Service.delete${className}(id);
-	}
+		/**
+		 * 查询${className}
+		 * @param currentPage
+		 * @param pageSize
+		 * @return
+		 */
+		ListResult<Hub> findAll(Integer currentPage, Integer pageSize);
 
 }
 

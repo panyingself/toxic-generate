@@ -14,5 +14,4 @@ import ${basepackage}.service.bean.*;
 
 @Mapper
 public interface ${className}Mapper extends BaseMapper<${className}>{
-
 }

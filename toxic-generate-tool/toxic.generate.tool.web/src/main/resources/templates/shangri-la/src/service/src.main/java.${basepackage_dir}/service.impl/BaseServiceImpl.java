@@ -1,7 +1,4 @@
 
-/*
- * Copyright (c) 2018. Toxic
- */
 package ${basepackage}.service.impl;
 
 import ${basepackage}.service.dao.BaseMapper;
@@ -22,27 +19,24 @@ public abstract class BaseServiceImpl<T, PK extends Serializable> implements Bas
     public BaseServiceImpl() {
     }
 
-    public int insert(T record) {
-        return this.baseMapper.insert(record);
+    public boolean save(T record) {
+        return this.baseMapper.insert(record) > 0;
     }
 
-    public int delete(PK entityId) {
-        return this.baseMapper.delete(entityId);
+    public boolean edit(T record) {
+        return this.baseMapper.update(record) > 0;
     }
 
-    public int update(T record) {
-        return this.baseMapper.update(record);
+    public int findAllCount() {
+        return this.baseMapper.findAllCount();
     }
 
-    public T getById(PK entityId) {
+    public T findById(PK entityId) {
         return this.baseMapper.getById(entityId);
     }
 
-    public T selectOne(T var1) {
+    public T findOne(T var1) {
         return this.baseMapper.selectOne(var1);
     }
 
-    public List<T> selectList(T var1) {
-        return this.baseMapper.selectList(var1);
-    }
 }

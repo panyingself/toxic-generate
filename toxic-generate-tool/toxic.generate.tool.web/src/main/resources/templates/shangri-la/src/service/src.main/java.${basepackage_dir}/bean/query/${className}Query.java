@@ -11,10 +11,6 @@ import ${basepackage}.service.bean.${className};
 public class ${className}Query extends ${className} {
 	private static final long serialVersionUID = 1L;
 	
-	/*
- * Copyright (c) 2018. Toxic
- */
-
 	/** 关键字查询 */
 	private java.lang.String keyWord;
 

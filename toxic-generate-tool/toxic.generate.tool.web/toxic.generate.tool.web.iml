@@ -107,7 +107,7 @@
     <orderEntry type="module-library">
       <library name="Maven: cn.org.rapid_framework:rapid_farmework:3.9.3.20100923">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../../../common/maven-repository/cn/org/rapid_framework/rapid_farmework/3.9.3.20100923/rapid_farmework-3.9.3.20100923.jar!/" />
+          <root url="jar://G:/maven/repository/cn/org/rapid_framework/rapid_farmework/3.9.3.20100923/rapid_farmework-3.9.3.20100923.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

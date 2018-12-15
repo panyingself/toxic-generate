@@ -27,6 +27,39 @@
 	    ]]>
 	</sql>
 
+	<sql id="limit">
+		<if test="_offset != null and _limit != null">
+			limit #{_offset}, #{_limit}
+		</if>
+		<if test="_offset == null and _limit != null">
+			limit #{_limit}
+		</if>
+		<if test="_offset == null and _limit == null">
+			<include refid="max_limit"/>
+		</if>
+	</sql>
+
+	<sql id="max_limit">
+		limit 500
+	</sql>
+
+	<sql id="orderby">
+	<choose>
+		<when test='_orderby != null'>
+			order by
+			<foreach collection="_orderby" item="item" index="index" separator=",">
+				${item}
+			</foreach>
+		</when>
+		<otherwise>
+			<include refid="orderById"/>
+		</otherwise>
+	</choose>
+	</sql>
+
+	<sql id="orderById">
+	order by create_time desc
+	</sql>
 	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
 	<insert id="insert" useGeneratedKeys="true" keyProperty="${table.idColumn.columnNameFirstLower}">
 		<#if dbType == "oracle">
@@ -136,11 +169,26 @@
 	    FROM ${table.sqlName} 
 		<include refid="list${className}Where"/>
     </select>
+
+	<select id="selectAllByPage"  resultMap="${classNameFirstLower}ResultMap" parameterType="java.util.HashMap">
+		SELECT
+		<include refid="${className}Columns" />
+		FROM ${table.sqlName}
+		<include refid="list${className}Where"/>
+		<include refid="orderby"/>
+		<include refid="limit"/>
+	</select>
+
+
 	<!--该方法适用于，获取的数据条数小于等于1 如有特殊需要自己实现-->
 	<select id="selectOne" resultMap="${classNameFirstLower}ResultMap">
 
 	</select>
 
+	<select id="findAllCount" resultType="int">
+	select count(*)
+	from ${table.sqlName}
+	</select>
 
 </mapper>
 

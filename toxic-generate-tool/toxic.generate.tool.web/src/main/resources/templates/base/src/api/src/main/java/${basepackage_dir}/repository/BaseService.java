@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. shangri-la
+ * Copyright (c) 2018. Toxic
  */
 
 package ${basepackage}.repository;
@@ -12,14 +12,15 @@ import java.util.List;
  * @date 2018/11/26 3:35 PM.
  */
 public interface BaseService<T, PK extends Serializable> {
-    boolean save(T var1);
+    int insert(T var1);
 
-    boolean edit(T var1);
+    int delete(PK var1);
 
-    int findAllCount();
+    int update(T var1);
 
-    T findById(PK var1);
+    T getById(PK var1);
 
-    T findOne(T var1);
+    T selectOne(T var1);
 
+    List<T> selectList(T var1);
 }

@@ -22,9 +22,11 @@ public class ${className}ServiceImpl extends BaseServiceImpl<${className},String
 	private ${className}Mapper ${classNameFirstLower}Mapper;
 
 
-	public List<${className}> queryList(${className}Query ${classNameFirstLower}Query){
+	public List<${className}> findAll(${className}Query ${classNameFirstLower}Query){
 		return ${classNameFirstLower}Mapper.selectList(${classNameFirstLower}Query);
 	}
 
-
+	public List<Hub> findAllByPage(BasicQuery basicQuery) {
+		return ${classNameFirstLower}Mapper.selectAllByPage(basicQuery);
+	}
 }
