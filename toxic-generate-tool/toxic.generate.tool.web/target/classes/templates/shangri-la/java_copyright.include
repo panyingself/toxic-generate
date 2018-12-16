@@ -1,5 +1,0 @@
-/*
- * Web Site: http://www.shangri-la.com
- * Since 2018 <#if now??>- ${now?string('yyyy')}</#if>
- */
-
