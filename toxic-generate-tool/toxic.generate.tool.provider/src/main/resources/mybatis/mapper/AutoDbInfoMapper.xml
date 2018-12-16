@@ -6,19 +6,21 @@
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
 <mapper namespace="com.toxic.generate.tool.mapper.AutoDbInfoMapper">
 	<resultMap id="autoDbInfoResultMap" type="com.toxic.generate.tool.model.AutoDbInfo">
-        <result property="keyId" column="key_id"/>
+		<result property="keyId" column="key_id"/>
         <result property="dbUrl" column="db_url"/>
         <result property="dbDriver" column="db_driver"/>
         <result property="dbUserName" column="db_user_name"/>
         <result property="dbPassWord" column="db_pass_word"/>
         <result property="dbSchema" column="db_schema"/>
         <result property="dbName" column="db_name"/>
+		<result property="deleteFlag" column="delete_flag"/>
+		<result property="modifyDateTime" column="modify_date_time"/>
 	</resultMap>
 	
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="AutoDbInfoColumns">
 	    <![CDATA[
-		key_id,db_url,db_driver,db_user_name,db_pass_word,db_schema,db_name
+		key_id,db_url,db_driver,db_user_name,db_pass_word,db_schema,db_name,delete_flag
 	    ]]>
 	</sql>
 
@@ -26,7 +28,6 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="keyId">
     <![CDATA[
         INSERT INTO auto_db_info (
-        	key_id ,
         	db_url ,
         	db_driver ,
         	db_user_name ,
@@ -34,7 +35,6 @@
         	db_schema ,
         	db_name 
         ) VALUES (
-        	#{keyId,jdbcType=VARCHAR},
         	#{dbUrl,jdbcType=VARCHAR},
         	#{dbDriver,jdbcType=VARCHAR},
         	#{dbUserName,jdbcType=VARCHAR},
@@ -44,10 +44,10 @@
         )
     ]]>
 		<!--
-			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL 
+			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL
 			DB2: order="BEFORE"" values nextval for sequenceName
 		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
-			SELECT sequenceName.nextval AS ID FROM DUAL 
+			SELECT sequenceName.nextval AS ID FROM DUAL
         </selectKey>
 		-->
 	</insert>
@@ -69,9 +69,13 @@
 	        <if test="dbSchema!=null">
 	        db_schema = #{dbSchema,jdbcType=VARCHAR} ,
 	        </if>
-	        <if test="dbName!=null">
-	        db_name = #{dbName,jdbcType=VARCHAR} ,
-	        </if>
+			<if test="dbName!=null">
+				db_name = #{dbName,jdbcType=VARCHAR},
+			</if>
+			<if test="deleteFlag!=null">
+				delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+			</if>
+				modify_date_time = #{modifyDateTime,jdbcType=TIMESTAMP}
         WHERE 
 	        key_id = #{keyId} 
 	</update>
@@ -88,7 +92,7 @@
 	    <![CDATA[
 		    FROM auto_db_info 
 	        WHERE 
-		        key_id = #{id} 
+		        key_id = #{id} and delete_flag = 1
 	    ]]>
 	</select>
 	
@@ -119,6 +123,7 @@
 	       	<if test="dbName!=null and dbName!=''">
 				AND db_name = #{dbName}
 			</if>
+			 AND delete_flag = 1
 		</where>
 	</sql>
 		

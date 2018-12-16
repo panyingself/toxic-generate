@@ -41,7 +41,7 @@ public class InitCodeController extends BaseController{
      */
     @RequestMapping(value="/init",method=RequestMethod.GET)
     public String init(Model model){
-        model.addAttribute("dbConfigList",dbConfigBusiness.getDbconfigInfoList());
+        model.addAttribute("dbConfigList",dbConfigBusiness.getAutoDbInfoList());
         return "db/db_list";
     }
     /**

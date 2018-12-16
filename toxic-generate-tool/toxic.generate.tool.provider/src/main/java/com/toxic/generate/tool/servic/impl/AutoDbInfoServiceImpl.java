@@ -21,7 +21,7 @@ import com.toxic.generate.tool.model.query.*;
 import javax.annotation.Resource;
 
 @Service
-public class AutoDbInfoServiceImpl extends BaseServiceImpl<AutoDbInfo,Integer> implements AutoDbInfoService {
+public class AutoDbInfoServiceImpl extends BaseServiceImpl<AutoDbInfo,String> implements AutoDbInfoService {
 	@Resource
 	private AutoDbInfoMapper autoDbInfoMapper;
 

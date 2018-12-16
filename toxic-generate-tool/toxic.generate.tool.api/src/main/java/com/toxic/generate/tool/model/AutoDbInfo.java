@@ -10,6 +10,7 @@
 package com.toxic.generate.tool.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 public class AutoDbInfo implements Serializable {
@@ -30,6 +31,26 @@ public class AutoDbInfo implements Serializable {
 	private String dbSchema;
 	/** db数据库名称 */
 	private String dbName;
+	/** db delete_flag */
+	private int deleteFlag;
+	/** db delete_flag */
+	private Date modifyDateTime;
+
+	public Date getModifyDateTime() {
+		return modifyDateTime;
+	}
+
+	public void setModifyDateTime(Date modifyDateTime) {
+		this.modifyDateTime = modifyDateTime;
+	}
+
+	public int getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(int deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
 
 	public String getKeyId() {
 		return this.keyId;

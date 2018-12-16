@@ -42,16 +42,17 @@ public class DbConfigBusiness {
      * @param
      * @return java.util.List<com.py.code.repository.DbconfigInfo>
      */
-    public List<DbconfigInfo> getDbconfigInfoList(){
+//    public List<DbconfigInfo> getDbconfigInfoList(){
+    public List<AutoDbInfo> getAutoDbInfoList(){
         List<DbconfigInfo> dbconfigInfoList = new ArrayList<DbconfigInfo>();
         //解析数据库配置
         //走数据库
         List<AutoDbInfo> autoDbInfoList = autoDbInfoService.queryList(new AutoDbInfoQuery());
-        if( null != autoDbInfoList && autoDbInfoList.size() > 0 ){
-            dbconfigInfoList = autoDbInfoList.stream()
-                    .map( x -> this.getDbServerByDb(x)
-                    ).collect(Collectors.toList());
-        }
+//        if( null != autoDbInfoList && autoDbInfoList.size() > 0 ){
+//            dbconfigInfoList = autoDbInfoList.stream()
+//                    .map( x -> this.getDbServerByDb(x)
+//                    ).collect(Collectors.toList());
+//        }
         //走配置文件
 //        if( null != dbConfig){
 //            List<DbServer> dbServerList = dbConfig.getDbconfig();
@@ -59,7 +60,7 @@ public class DbConfigBusiness {
 //                .map( x -> this.getDbServer(x.getCfg())
 //                ).collect(Collectors.toList());
 //        }
-        return dbconfigInfoList;
+        return autoDbInfoList;
     }
     /**
      *获取dbserver信息
