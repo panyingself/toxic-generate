@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @EnableTransactionManagement
 @SpringBootApplication
-public class GenerateApplication extends SpringBootServletInitializer{
+public class GenerateApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(GenerateApplication.class, args);

@@ -27,39 +27,6 @@
 	    ]]>
 	</sql>
 
-	<sql id="limit">
-		<if test="_offset != null and _limit != null">
-			limit #{_offset}, #{_limit}
-		</if>
-		<if test="_offset == null and _limit != null">
-			limit #{_limit}
-		</if>
-		<if test="_offset == null and _limit == null">
-			<include refid="max_limit"/>
-		</if>
-	</sql>
-
-	<sql id="max_limit">
-		limit 500
-	</sql>
-
-	<sql id="orderby">
-	<choose>
-		<when test='_orderby != null'>
-			order by
-			<foreach collection="_orderby" item="item" index="index" separator=",">
-				${item}
-			</foreach>
-		</when>
-		<otherwise>
-			<include refid="orderById"/>
-		</otherwise>
-	</choose>
-	</sql>
-
-	<sql id="orderById">
-	order by create_time desc
-	</sql>
 	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
 	<insert id="insert" useGeneratedKeys="true" keyProperty="${table.idColumn.columnNameFirstLower}">
 		<#if dbType == "oracle">

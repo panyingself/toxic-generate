@@ -39,11 +39,11 @@ public class GenerateBusiness {
         init(dbconfigInfo,tableInfo,codeConfig);
 
         GeneratorFacade g = new GeneratorFacade();
-        try {
-            g.deleteOutRootDir();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            g.deleteOutRootDir();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         try {
             g.generateByTable(tableInfo.getTableName(),codeConfig.getTemplateName());
         } catch (Exception e) {

@@ -10,21 +10,35 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>toxic.generate.tool.web</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <dependencies>
         <!--springboot start-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+                <artifactId>spring-boot-starter-web</artifactId>
             <version>${springboot.version}</version>
+            <!-- 移除嵌入式tomcat插件 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+<!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
             <version>${springboot.version}</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -53,9 +67,11 @@
             <artifactId>rapid_farmework</artifactId>
             <scope>system</scope>
             <version>3.9.3.20100923</version>
-            <systemPath> G:/maven/repository/cn/org/rapid_framework/rapid_farmework/3.9.3.20100923/rapid_farmework-3.9.3.20100923.jar</systemPath>
+            <systemPath>${project.basedir}/src/main/resources/lib/rapid_farmework-3.9.3.20100923.jar</systemPath>
+            <!--<systemPath> G:/maven/repository/cn/org/rapid_framework/rapid_farmework/3.9.3.20100923/rapid_farmework-3.9.3.20100923.jar</systemPath>-->
             <!--<systemPath>/Users/panying/home/common/maven-repository/cn/org/rapid_framework/rapid_farmework/3.9.3.20100923/rapid_farmework-3.9.3.20100923.jar</systemPath>-->
         </dependency>
+
 
         <dependency>
             <groupId>org.apache.ant</groupId>
@@ -112,11 +128,14 @@
             <artifactId>toxic.generate.tool.provider</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+
+        <!--因配置外部TOMCAT 而配置-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat -->
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-devtools</artifactId>-->
-            <!--<version>2.0.4.RELEASE</version>-->
+            <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+            <!--<scope>provided</scope>-->
+            <!--<version>2.0.6.RELEASE</version>-->
         <!--</dependency>-->
 
 
@@ -125,17 +144,13 @@
     <build>
         <finalName>toxic-generate-tool-web</finalName>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<mainClass>com.toxic.generate.tool.GenerateApplication</mainClass>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-            <!--解决SpringBoot打包成jar后运行提示没有主清单属性-->
+            <!--springboot 打包-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -144,7 +159,7 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <!--project jdk compire-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -157,19 +172,16 @@
 
             <!--<plugin>-->
                 <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<version>3.0.2</version>-->
+                <!--<artifactId>maven-war-plugin</artifactId>-->
+                <!--<version>2.6</version>-->
                 <!--<configuration>-->
-                    <!--<archive>-->
-                        <!--<manifest>-->
-                            <!--<addClasspath>true</addClasspath>-->
-                            <!--<classpathPrefix>lib</classpathPrefix>-->
-                            <!--<mainClass>com.toxic.generate.tool.GenerateApplication</mainClass>-->
-                        <!--</manifest>-->
-                        <!--<addMavenDescriptor>true</addMavenDescriptor>-->
-                    <!--</archive>-->
+                    <!--&lt;!&ndash;如果想在没有web.xml文件的情况下构建WAR，请设置为false。&ndash;&gt;-->
+                    <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
                 <!--</configuration>-->
             <!--</plugin>-->
+
         </plugins>
+
     </build>
+
 </project>

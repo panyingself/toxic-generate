@@ -97,7 +97,7 @@ mybatis-plus:
     cache-enabled: false
 #logging
 logging:
-  level: warn
+  level: info
 
 
 

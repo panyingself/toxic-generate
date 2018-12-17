@@ -50,7 +50,7 @@ public class GenerateController extends BaseController {
 
         try {
             codeConfig.setOutRoot(ResourceUtils.getURL("classpath:templates/upload").getPath()+request.getSession().getId());
-            codeConfig.setTemplateName(ResourceUtils.getURL("classpath:templates/base").getPath());
+            codeConfig.setTemplateName(ResourceUtils.getURL("classpath:templates/shangri-la").getPath());
 //            codeConfig.setTemplateName(ResourceUtils.getURL("classpath:templates/base").getPath());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
