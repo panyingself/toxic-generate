@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.toxic</groupId>
-    <artifactId>toxic.generate.tool</artifactId>
+    <artifactId>toxic-generate-tool</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>toxic.generate.tool.web</module>
-        <module>toxic.generate.tool.parent</module>
-        <module>toxic.generate.tool.api</module>
-        <module>toxic.generate.tool.provider</module>
+        <module>toxic-generate-tool-web</module>
+        <module>toxic-generate-tool-parent</module>
+        <module>toxic-generate-tool-api</module>
+        <module>toxic-generate-tool-provider</module>
     </modules>
 
 
