@@ -50,7 +50,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <a class="layui-btn"  onclick="toDbAdd()Add('${request.contextPath}/initcode/init')">立即提交</a>
+                <a class="layui-btn"  onclick="toDbAdd('${request.contextPath}/initcode/init')">立即提交</a>
                 <button type="reset" class="layui-btn layui-btn-primary" onclick="dbEditReset()">重置</button>
             </div>
         </div>

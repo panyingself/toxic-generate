@@ -9,7 +9,7 @@ import ${basepackage}.${classNameLowerCase}.service.impl.*;
 import ${basepackage}.${classNameLowerCase}.model.query.*;
 
 /**
- * @author reapal
+ * @author shangri-la
  * @date <#if now??> ${now?string('yyyy-MM-dd HH:mm:ss')}</#if>
  * @version 1.0
  */
