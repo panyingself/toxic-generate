@@ -11,11 +11,8 @@ package ${basepackage}.repository;
 
 import java.util.List;
 import ${basepackage}.service.bean.*;
-import ${basepackage}.service.bean.query.*;
+import com.maxim.anepoch.common.base.query.BasicQuery;
 
 public interface ${className}Service extends BaseService<${className}, Long>{
-
-		List<${className}> findAll(${className}Query ${classNameFirstLower}Query);
-
 		List<${className}> findAllByPage(BasicQuery basicQuery);
 }

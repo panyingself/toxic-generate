@@ -11,7 +11,7 @@ import ${basepackage}.service.bean.${className};
 import ${basepackage}.biz.${className}Biz;
 import com.maxim.anepoch.common.base.ListResult;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.stereotype.Controller;
 import javax.annotation.Resource;
 
 @Controller

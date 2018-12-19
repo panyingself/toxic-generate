@@ -7,7 +7,7 @@
 
 package ${basepackage}.biz;
 
-import ${basepackage}.bean.${className};
+import ${basepackage}.service.bean.${className};
 import com.maxim.anepoch.common.base.ListResult;
 
 public interface ${className}Biz {

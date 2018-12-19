@@ -7,33 +7,27 @@
 
 package ${basepackage}.bize;
 
-import com.maxim.anepoch.auth.UserDetailContextHolder;
 import ${basepackage}.service.bean.${className};
-import ${basepackage}.service.constant.ErrorCodeConstant;
 import ${basepackage}.service.service.${className}Service;
-import com.maxim.anepoch.baseinfo.utils.PatternTemplate;
-import ${basepackage}.utils.PatternTemplate;
 import com.maxim.anepoch.common.base.ListResult;
 import com.maxim.anepoch.common.base.query.BasicQuery;
-import com.maxim.anepoch.common.diff.api.DiffAPI;
 import com.maxim.anepoch.common.diff.api.LocationPm;
 import com.maxim.anepoch.common.monitor.BizTemplate;
-import com.maxim.anepoch.common.utils.ConditionUtils;
-import com.maxim.anepoch.common.utils.LengthUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
-public class ${className}Impl implements ${className}Biz {
+public class ${className}BizImpl implements ${className}Biz {
 
-private static final Logger LOGGER = LoggerFactory.getLogger(HubBizImpl.class);
+private static final Logger LOGGER = LoggerFactory.getLogger(${className}BizImpl.class);
 	@Resource
 	private ${className}Service ${classNameFirstLower}Service;
 	public static final String CHANGE_LOG_RESOURCE_KEY = "${classNameFirstLower}";
-	public static final String BIZ_TYPE = "baseinfo";
+	public static final String BIZ_TYPE = "${classNameFirstLower}";
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -45,15 +39,11 @@ private static final Logger LOGGER = LoggerFactory.getLogger(HubBizImpl.class);
 
 				@Override
 				protected Boolean process() {
-						hubService.save(${classNameFirstLower});
+						${classNameFirstLower}Service.save(${classNameFirstLower});
 						return true;
 				}
 
 				private void changeLog(LocationPm pm) {
-						pm.bizType(BIZ_TYPE)
-						.resourceKey(CHANGE_LOG_RESOURCE_KEY)
-						.uniquenessId(${classNameFirstLower}.getId().toString())
-						.operator(UserDetailContextHolder.getUserDetail().getUserId().toString());
 				}
 			}.execute();
 		}
@@ -74,10 +64,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(HubBizImpl.class);
 					}
 
 				private void changeLog(LocationPm pm) {
-						pm.bizType(BIZ_TYPE)
-						.resourceKey(CHANGE_LOG_RESOURCE_KEY)
-						.uniquenessId(${classNameFirstLower}.getId().toString())
-						.operator(UserDetailContextHolder.getUserDetail().getUserId().toString());
+
 					}
 				}.execute();
 	}
@@ -89,7 +76,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(HubBizImpl.class);
 				protected ListResult<${className}> process() {
 						BasicQuery basicQuery = new BasicQuery();
 						basicQuery.setPaging(currentPage,pageSize);
-						List<${className}> list = ${classNameFirstLower}Service.findAll(basicQuery);
+						List<${className}> list = ${classNameFirstLower}Service.findAllByPage(basicQuery);
 						int count = ${classNameFirstLower}Service.findAllCount();
 						ListResult<${className}> result = new ListResult<>(currentPage,pageSize,list).setTotal(count);
 						return result;

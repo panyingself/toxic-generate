@@ -12,9 +12,9 @@ import java.util.List;
 import ${basepackage}.service.dao.${className}Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ${basepackage}.service.service.AutoDbInfoService;
+import ${basepackage}.service.service.${className}Service;
 import ${basepackage}.service.bean.*;
-import ${basepackage}.service.bean.query.*;
+import com.maxim.anepoch.common.base.query.BasicQuery;
 
 @Service
 public class ${className}ServiceImpl extends BaseServiceImpl<${className},Long> implements ${className}Service {
@@ -27,6 +27,6 @@ public class ${className}ServiceImpl extends BaseServiceImpl<${className},Long> 
 	}
 
 	public List<${className}> findAllByPage(BasicQuery basicQuery) {
-		return ${classNameFirstLower}Mapper.selectAllByPage(basicQuery);
+		return null;
 	}
 }
