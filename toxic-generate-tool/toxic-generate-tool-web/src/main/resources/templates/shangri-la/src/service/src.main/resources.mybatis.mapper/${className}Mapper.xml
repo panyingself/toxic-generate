@@ -69,7 +69,6 @@
         	</#if>
         </#list>
        	</#if>
-    <![CDATA[
         INSERT INTO ${table.sqlName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
 			<#list table.columns as column>
@@ -91,7 +90,6 @@
 				</if>
 			</#list>
         </trim>
-    ]]>
 	</insert>
     
 	<update id="update" >
@@ -115,14 +113,11 @@
 	        </#list>
 	</update>
 
-    <!--<delete id="delete">-->
-    <!--<![CDATA[-->
-        <!--DELETE FROM ${table.sqlName} WHERE-->
-        <!--<#list table.compositeIdColumns as column>-->
-        <!--${column.sqlName} = <@mapperEl 'id'/> <#if column_has_next> AND </#if>-->
-		<!--</#list>-->
-    <!--]]>-->
-    <!--</delete>-->
+	<!--逻辑删除记录-->
+	<delete id="delete">
+		UPDATE ${table.sqlName} SET delete_flag = 1
+		<include refid="list${className}Where"/>
+	</delete>
     
     <select id="getById" resultMap="${classNameFirstLower}ResultMap">
 		SELECT <include refid="${className}Columns" />
@@ -139,14 +134,9 @@
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
 		<where>      				
 	       	<#list table.columns as column>
-	       	<#if column_index == 0 >
-	       	<if test="keyWord!=null and keyWord!=''">
-				AND (${column.sqlName} <#noparse>like CONCAT(CONCAT('%', #{keyWord}),'%')</#noparse> or ${column.sqlName} <#noparse>like CONCAT(CONCAT('%', #{keyWord}),'%'))</#noparse>
-			</if>
-			</#if>
-	       	<if test="${column.columnNameFirstLower}!=null and ${column.columnNameFirstLower}!=''">
-				AND ${column.sqlName} = <@mapperEl column.columnNameFirstLower/>
-			</if>
+				<if test="${column.columnNameFirstLower}!=null and ${column.columnNameFirstLower}!=''">
+					AND ${column.sqlName} = <@mapperEl column.columnNameFirstLower/>
+				</if>
 	       	</#list>		
 		</where>
 	</sql>
@@ -177,7 +167,8 @@
 
 	<!--该方法适用于，获取的数据条数小于等于1 如有特殊需要自己实现-->
 	<select id="selectOne" resultMap="${classNameFirstLower}ResultMap">
-		SELECT <include refid="${className}Columns" /> FROM ${table.sqlName}
+		SELECT <include refid="${className}Columns" />
+		FROM ${table.sqlName}
 		<include refid="list${className}Where"/>
 	</select>
 

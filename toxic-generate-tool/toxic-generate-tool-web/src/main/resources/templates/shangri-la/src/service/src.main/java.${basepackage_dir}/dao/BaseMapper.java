@@ -9,7 +9,7 @@ import java.util.List;
 public interface BaseMapper<T> {
     int insert(T var1);
 
-//    int delete(Object var1);
+    int delete(Object var1);
 
     int update(T var1);
 

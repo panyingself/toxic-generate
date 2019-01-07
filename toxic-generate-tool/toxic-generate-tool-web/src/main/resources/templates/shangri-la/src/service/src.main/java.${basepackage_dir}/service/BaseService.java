@@ -16,6 +16,8 @@ public interface BaseService<T, PK extends Serializable> {
 
     boolean edit(T var1);
 
+    int delete(T var1);
+
     int findAllCount();
 
     T findById(PK var1);

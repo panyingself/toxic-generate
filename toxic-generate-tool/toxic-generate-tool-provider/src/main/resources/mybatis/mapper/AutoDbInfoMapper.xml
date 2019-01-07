@@ -92,7 +92,7 @@
 	    <![CDATA[
 		    FROM auto_db_info 
 	        WHERE 
-		        key_id = #{id} and delete_flag = 1
+		        key_id = #{id} and delete_flag = 0
 	    ]]>
 	</select>
 	
@@ -123,7 +123,7 @@
 	       	<if test="dbName!=null and dbName!=''">
 				AND db_name = #{dbName}
 			</if>
-			 AND delete_flag = 1
+			 AND delete_flag = 0
 		</where>
 	</sql>
 		

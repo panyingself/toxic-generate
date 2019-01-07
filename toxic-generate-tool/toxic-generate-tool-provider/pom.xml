@@ -80,7 +80,7 @@
         <!--业务依赖-->
         <dependency>
             <groupId>com.toxic</groupId>
-            <artifactId>toxic.generate.tool.api</artifactId>
+            <artifactId>toxic-generate-tool-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

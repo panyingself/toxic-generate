@@ -18,23 +18,27 @@ public abstract class BaseServiceImpl<T, PK extends Serializable> implements Bas
 
     public BaseServiceImpl() {
     }
-
+    @Override
     public boolean save(T record) {
         return this.baseMapper.insert(record) > 0;
     }
-
+    @Override
     public boolean edit(T record) {
         return this.baseMapper.update(record) > 0;
     }
-
+    @Override
+    public int delete(T record) {
+        return baseMapper.delete(record);
+    }
+    @Override
     public int findAllCount() {
         return this.baseMapper.findAllCount();
     }
-
+    @Override
     public T findById(PK entityId) {
         return this.baseMapper.getById(entityId);
     }
-
+    @Override
     public T findOne(T var1) {
         return this.baseMapper.selectOne(var1);
     }
