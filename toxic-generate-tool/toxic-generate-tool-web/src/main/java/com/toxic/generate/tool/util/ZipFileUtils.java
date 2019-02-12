@@ -25,7 +25,8 @@ public class ZipFileUtils {
         return instance;
     }
 
-    public ZipFileUtils() {}
+    public ZipFileUtils() {
+    }
 
     /*
      * inputFileName 输入一个文件夹
@@ -52,12 +53,12 @@ public class ZipFileUtils {
             for (int i = 0; i < fl.length; i++) {
                 zip(out, fl[i], base + fl[i].getName());
             }
-        }else {
+        } else {
             out.putNextEntry(new ZipEntry(base));
             FileInputStream in = new FileInputStream(f);
             int b;
             System.out.println(base);
-            while ( (b = in.read()) != -1) {
+            while ((b = in.read()) != -1) {
                 out.write(b);
             }
             in.close();
@@ -65,20 +66,14 @@ public class ZipFileUtils {
     }
 
 
-
     public synchronized void zip(String inputFilename, String zipFilename) throws IOException {
         zip(new File(inputFilename), zipFilename);
     }
 
     public synchronized void zip(File inputFile, String zipFilename) throws IOException {
-        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFilename));
 
-        try {
+        try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFilename))) {
             zip(inputFile, out, "");
-        } catch (IOException e) {
-            throw e;
-        } finally {
-            out.close();
         }
     }
 
@@ -88,8 +83,8 @@ public class ZipFileUtils {
             File[] inputFiles = inputFile.listFiles();
             out.putNextEntry(new ZipEntry(base + "/"));
             base = base.length() == 0 ? "" : base + "/";
-            for (int i = 0; i < inputFiles.length; i++) {
-                zip(inputFiles[i], out, base + inputFiles[i].getName());
+            for (File inputFile1 : inputFiles) {
+                zip(inputFile1, out, base + inputFile1.getName());
             }
 
         } else {
@@ -99,22 +94,17 @@ public class ZipFileUtils {
                 out.putNextEntry(new ZipEntry(inputFile.getName()));
             }
 
-            FileInputStream in = new FileInputStream(inputFile);
-            try {
+            try (FileInputStream in = new FileInputStream(inputFile)) {
                 int c;
                 byte[] by = new byte[BUFFEREDSIZE];
                 while ((c = in.read(by)) != -1) {
                     out.write(by, 0, c);
                 }
-            } catch (IOException e) {
-                throw e;
-            } finally {
-                in.close();
             }
         }
     }
 
-    public synchronized void unzip(String zipFilename, String outputDirectory)
+    private synchronized void unzip(String zipFilename, String outputDirectory)
             throws IOException {
         File outFile = new File(outputDirectory);
         if (!outFile.exists()) {
@@ -139,20 +129,13 @@ public class ZipFileUtils {
                 File f = new File(outFile.getPath() + File.separator
                         + zipEntry.getName());
                 f.createNewFile();
-                InputStream in = zipFile.getInputStream(zipEntry);
-                FileOutputStream out = new FileOutputStream(f);
-                try {
+                try (InputStream in = zipFile.getInputStream(zipEntry); FileOutputStream out = new FileOutputStream(f)) {
                     int c;
                     byte[] by = new byte[BUFFEREDSIZE];
                     while ((c = in.read(by)) != -1) {
                         out.write(by, 0, c);
                     }
                     // out.flush();
-                } catch (IOException e) {
-                    throw e;
-                } finally {
-                    out.close();
-                    in.close();
                 }
             }
         }

@@ -21,14 +21,15 @@ import com.toxic.generate.tool.model.query.*;
 import javax.annotation.Resource;
 
 @Service
-public class AutoDbInfoServiceImpl extends BaseServiceImpl<AutoDbInfo,String> implements AutoDbInfoService {
-	@Resource
-	private AutoDbInfoMapper autoDbInfoMapper;
+public class AutoDbInfoServiceImpl extends BaseServiceImpl<AutoDbInfo, String> implements AutoDbInfoService {
+    @Resource
+    private AutoDbInfoMapper autoDbInfoMapper;
 
 
-	public List<AutoDbInfo> queryList(AutoDbInfoQuery autoDbInfoQuery){
-		return autoDbInfoMapper.selectList(autoDbInfoQuery);
-	}
+    @Override
+    public List<AutoDbInfo> queryList(AutoDbInfoQuery autoDbInfoQuery) {
+        return autoDbInfoMapper.selectList(autoDbInfoQuery);
+    }
 
 
 }

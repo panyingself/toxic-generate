@@ -71,13 +71,15 @@ public class GenerateBusiness {
         GeneratorProperties.setProperty("jdbc.driver", dbconfigInfo.getDriver());
         GeneratorProperties.setProperty("jdbc.username", dbconfigInfo.getUsername());
         GeneratorProperties.setProperty("jdbc.password", dbconfigInfo.getPassword());
-        if(null != (dbconfigInfo.getSchema()) && !"".equals(dbconfigInfo.getSchema()))
+        if(null != (dbconfigInfo.getSchema()) && !"".equals(dbconfigInfo.getSchema())) {
             GeneratorProperties.setProperty("jdbc.schema", dbconfigInfo.getSchema());
+        }
         //GeneratorProperties.setProperty("jdbc.catalog", codeConfig.getCatalog());
 
 
-        if(null != (codeConfig.getOutRoot()) && !"".equals(codeConfig.getOutRoot()))
+        if(null != (codeConfig.getOutRoot()) && !"".equals(codeConfig.getOutRoot())) {
             GeneratorProperties.setProperty("outRoot", codeConfig.getOutRoot());
+        }
         GeneratorProperties.setProperty("tableRemovePrefixes", codeConfig.getTableRemovePrefixes());
 
         GeneratorProperties.setProperty("namespace", codeConfig.getNamespace());

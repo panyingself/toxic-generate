@@ -87,7 +87,7 @@
     ]]>
     </delete>
     
-    <select id="getById" resultMap="autoDbInfoResultMap">
+    <select id="selectByPk" resultMap="autoDbInfoResultMap">
 		SELECT <include refid="AutoDbInfoColumns" />
 	    <![CDATA[
 		    FROM auto_db_info 

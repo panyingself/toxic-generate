@@ -21,12 +21,17 @@ public class ${className}ServiceImpl extends BaseServiceImpl<${className},Long> 
 	@Autowired
 	private ${className}Mapper ${classNameFirstLower}Mapper;
 
-
-	public List<${className}> findAll(${className} ${classNameFirstLower}){
+	public List<${className}> queryList(${className} ${classNameFirstLower}){
 		return ${classNameFirstLower}Mapper.selectList(${classNameFirstLower});
 	}
 
-	public List<${className}> findAllByPage(BasicQuery basicQuery) {
-		return null;
+	public List<${className}> queryListByPage(BasicQuery basicQuery) {
+		return ${classNameFirstLower}Mapper.selectListByPage(basicQuery);
 	}
+
+	@Override
+	public int queryCountByConditions(${className} ${classNameFirstLower}) {
+		return this.baseMapper.getTotleCountByConditions(${classNameFirstLower});
+	}
+
 }

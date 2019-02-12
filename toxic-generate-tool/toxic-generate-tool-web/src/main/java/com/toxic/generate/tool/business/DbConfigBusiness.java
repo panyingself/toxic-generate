@@ -34,16 +34,18 @@ public class DbConfigBusiness {
     private CodeService codeService;
     @Resource
     private AutoDbInfoService autoDbInfoService;
+
     /**
      * Method:
      * Description: 获取数据库配置列表
-     * @Author panying
-     * @Data 2018/7/9 上午10:06
+     *
      * @param
      * @return java.util.List<com.py.code.repository.DbconfigInfo>
+     * @Author panying
+     * @Data 2018/7/9 上午10:06
      */
 //    public List<DbconfigInfo> getDbconfigInfoList(){
-    public List<AutoDbInfo> getAutoDbInfoList(){
+    public List<AutoDbInfo> getAutoDbInfoList() {
         List<DbconfigInfo> dbconfigInfoList = new ArrayList<DbconfigInfo>();
         //解析数据库配置
         //走数据库
@@ -62,15 +64,17 @@ public class DbConfigBusiness {
 //        }
         return autoDbInfoList;
     }
+
     /**
-     *获取dbserver信息
+     * 获取dbserver信息
+     *
      * @param
      * @return com.py.code.repository.DbconfigInfo
+     * @throws
      * @author py
-     * @date  5:08 PM
-     * @exception
+     * @date 5:08 PM
      */
-    private DbconfigInfo getDbServer(String str){
+    private DbconfigInfo getDbServer(String str) {
         DbconfigInfo dbconfigInfo = new DbconfigInfo();
         String[] splits = str.split("\\|");
         dbconfigInfo.setUrl(splits[0]);
@@ -81,15 +85,15 @@ public class DbConfigBusiness {
         dbconfigInfo.setDbName(splits[5]);
         return dbconfigInfo;
     }
+
     /**
-     *
      * @param
      * @return com.toxic.generate.tool.model.DbconfigInfo
+     * @throws
      * @author py
-     * @date  4:07 PM
-     * @exception
+     * @date 4:07 PM
      */
-    private DbconfigInfo getDbServerByDb(AutoDbInfo autoDbInfo){
+    private DbconfigInfo getDbServerByDb(AutoDbInfo autoDbInfo) {
         DbconfigInfo dbconfigInfo = new DbconfigInfo();
         dbconfigInfo.setUrl(autoDbInfo.getDbUrl());
         dbconfigInfo.setDriver(autoDbInfo.getDbDriver());
@@ -99,41 +103,47 @@ public class DbConfigBusiness {
         dbconfigInfo.setDbName(autoDbInfo.getDbName());
         return dbconfigInfo;
     }
+
     /**
      * Method:
      * Description: 获取数据库所有表信息
-     * @Author panying
-     * @Data 2018/7/9 上午11:45
+     *
      * @param dbconfigInfo
      * @return java.util.List<com.py.code.repository.TableInfo>
+     * @Author panying
+     * @Data 2018/7/9 上午11:45
      */
-    public List<TableInfo> getAllTables(DbconfigInfo dbconfigInfo){
-        List<TableInfo> tableInfoList = new ArrayList<TableInfo>();
+    public List<TableInfo> getAllTables(DbconfigInfo dbconfigInfo) {
+        List<TableInfo> tableInfoList;
         tableInfoList = codeService.getAllTables(dbconfigInfo);
         return tableInfoList;
     }
+
     /**
      * Method:
      * Description: 获取对应表所有字段信息
+     *
+     * @param tableName
+     * @param dbconfigInfo
+     * @return com.py.code.repository.TableInfo
      * @Author panying
      * @Data 2018/7/9 下午3:39
-     * @param tableName
-    * @param dbconfigInfo
-     * @return com.py.code.repository.TableInfo
      */
-    public  TableInfo getAllColumns(String tableName,DbconfigInfo dbconfigInfo){
-        return codeService.getAllColumns(tableName,dbconfigInfo);
+    public TableInfo getAllColumns(String tableName, DbconfigInfo dbconfigInfo) {
+        return codeService.getAllColumns(tableName, dbconfigInfo);
     }
+
     /**
      * Method:
      * Description: 保存表和配置信息
+     *
+     * @param tableInfo
+     * @param dbconfigInfo
+     * @return void
      * @Author panying
      * @Data 2018/7/9 下午8:36
-     * @param tableInfo
-    * @param dbconfigInfo
-     * @return void
      */
-    public void saveComment(TableInfo tableInfo,DbconfigInfo dbconfigInfo){
-        codeService.saveComment(tableInfo,dbconfigInfo);
+    public void saveComment(TableInfo tableInfo, DbconfigInfo dbconfigInfo) {
+        codeService.saveComment(tableInfo, dbconfigInfo);
     }
 }

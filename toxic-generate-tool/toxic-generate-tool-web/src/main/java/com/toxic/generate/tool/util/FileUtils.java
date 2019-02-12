@@ -22,12 +22,9 @@ public class FileUtils {
     /**
      * 复制文件
      *
-     * @param srcFile
-     *            源文件File
-     * @param destDir
-     *            目标目录File
-     * @param newFileName
-     *            新文件名
+     * @param srcFile     源文件File
+     * @param destDir     目标目录File
+     * @param newFileName 新文件名
      * @return 实际复制的字节数，如果文件、目录不存在、文件为null或者发生IO异常，返回-1
      */
     public static long copyFile(File srcFile, File destDir, String newFileName) {
@@ -57,8 +54,6 @@ public class FileUtils {
                 bout.close();
                 copySizes = i;
 
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -69,12 +64,9 @@ public class FileUtils {
     /**
      * 复制文件(以超快的速度复制文件)
      *
-     * @param srcFile
-     *            源文件File
-     * @param destDir
-     *            目标目录File
-     * @param newFileName
-     *            新文件名
+     * @param srcFile     源文件File
+     * @param destDir     目标目录File
+     * @param newFileName 新文件名
      * @return 实际复制的字节数，如果文件、目录不存在、文件为null或者发生IO异常，返回-1
      */
     public static long copyFile2(File srcFile, File destDir, String newFileName) {
@@ -108,21 +100,24 @@ public class FileUtils {
     }
 
     /**
-     *  根据路径删除指定的目录或文件，无论存在与否
-     *@param sPath  要删除的目录或文件
-     *@return 删除成功返回 true，否则返回 false。
+     * 根据路径删除指定的目录或文件，无论存在与否
+     *
+     * @param sPath 要删除的目录或文件
+     * @return 删除成功返回 true，否则返回 false。
      */
     public static boolean DeleteFolder(String sPath) {
-        boolean flag = false;
         File file = new File(sPath);
         // 判断目录或文件是否存在
-        if (!file.exists()) {  // 不存在返回 false
-            return flag;
+        // 不存在返回 false
+        if (!file.exists()) {
+            return false;
         } else {
             // 判断是否为文件
-            if (file.isFile()) {  // 为文件时调用删除文件方法
+            // 为文件时调用删除文件方法
+            if (file.isFile()) {
                 return deleteFile(sPath);
-            } else {  // 为目录时调用删除目录方法
+            } else {
+                // 为目录时调用删除目录方法
                 return deleteDirectory(sPath);
             }
         }
@@ -130,21 +125,24 @@ public class FileUtils {
 
 
     /**
-     *  根据路径删除包含指定字符的文件
+     * 根据路径删除包含指定字符的文件
      */
-    public static boolean DeleteFileByKey(String sPath,String sKey) {
-        boolean flag = false;
+    public static boolean DeleteFileByKey(String sPath, String sKey) {
         File file = new File(sPath);
         // 判断目录或文件是否存在
-        if (!file.exists()) {  // 不存在返回 false
-            return flag;
+        // 不存在返回 false
+        if (!file.exists()) {
+            return false;
         } else {
             File temp = null;
             File[] filelist = file.listFiles();
-            for (int i = 0; i < filelist.length; i++) {  //遍历目录下所有文件
-                temp = filelist[i];
-                if(temp.getName().contains(sKey)){     //输入文件所包含的字符
-                    temp.delete();     //删除文件
+            //遍历目录下所有文件
+            for (File aFilelist : filelist) {
+                temp = aFilelist;
+                //输入文件所包含的字符
+                //删除文件
+                if (temp.getName().contains(sKey)) {
+                    temp.delete();
                 }
             }
 
@@ -154,7 +152,8 @@ public class FileUtils {
 
     /**
      * 删除单个文件
-     * @param   sPath    被删除文件的文件名
+     *
+     * @param sPath 被删除文件的文件名
      * @return 单个文件删除成功返回true，否则返回false
      */
     public static boolean deleteFile(String sPath) {
@@ -169,11 +168,11 @@ public class FileUtils {
     }
 
 
-
     /**
      * 删除目录（文件夹）以及目录下的文件
-     * @param   sPath 被删除目录的文件路径
-     * @return  目录删除成功返回true，否则返回false
+     *
+     * @param sPath 被删除目录的文件路径
+     * @return 目录删除成功返回true，否则返回false
      */
     public static boolean deleteDirectory(String sPath) {
         //如果sPath不以文件分隔符结尾，自动添加文件分隔符
@@ -188,23 +187,25 @@ public class FileUtils {
         boolean flag = true;
         //删除文件夹下的所有文件(包括子目录)
         File[] files = dirFile.listFiles();
-        for (int i = 0; i < files.length; i++) {
+        for (File file : files) {
             //删除子文件
-            if (files[i].isFile()) {
-                flag = deleteFile(files[i].getAbsolutePath());
-                if (!flag) break;
+            if (file.isFile()) {
+                flag = deleteFile(file.getAbsolutePath());
+                if (!flag) {
+                    break;
+                }
             } //删除子目录
             else {
-                flag = deleteDirectory(files[i].getAbsolutePath());
-                if (!flag) break;
+                flag = deleteDirectory(file.getAbsolutePath());
+                if (!flag) {
+                    break;
+                }
             }
         }
-        if (!flag) return false;
-        //删除当前目录
-        if (dirFile.delete()) {
-            return true;
-        } else {
+        if (!flag) {
             return false;
         }
+        //删除当前目录
+        return dirFile.delete();
     }
 }

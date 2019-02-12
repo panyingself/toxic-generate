@@ -58,7 +58,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(${className}BizImpl
 
 					@Override
 					protected Boolean process() {
-							${className} old${className} = ${classNameFirstLower}Service.findById(${classNameFirstLower}.getId());
+							${className} old${className} = ${classNameFirstLower}Service.findOne(${classNameFirstLower});
 							${classNameFirstLower}Service.edit(${classNameFirstLower});
 							return true;
 					}
@@ -77,7 +77,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(${className}BizImpl
 						BasicQuery basicQuery = new BasicQuery();
 						basicQuery.setPaging(currentPage,pageSize);
 						List<${className}> list = ${classNameFirstLower}Service.findAllByPage(basicQuery);
-						int count = ${classNameFirstLower}Service.findAllCount();
+						int count = ${classNameFirstLower}Service.queryCountByConditions(${classNameFirstLower});
 						ListResult<${className}> result = new ListResult<>(currentPage,pageSize,list).setTotal(count);
 						return result;
 				}

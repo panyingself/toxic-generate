@@ -28,64 +28,69 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/initcode")
-public class InitCodeController extends BaseController{
+public class InitCodeController extends BaseController {
     @Resource
     private DbConfigBusiness dbConfigBusiness;
+
     /**
      * Method:
      * Description: 初始化数据库配置信息
-     * @Author panying
-     * @Data 2018/7/6 下午3:30
+     *
      * @param model
      * @return java.lang.String
+     * @Author panying
+     * @Data 2018/7/6 下午3:30
      */
-    @RequestMapping(value="/init",method=RequestMethod.GET)
-    public String init(Model model){
-        model.addAttribute("dbConfigList",dbConfigBusiness.getAutoDbInfoList());
+    @RequestMapping(value = "/init", method = RequestMethod.GET)
+    public String init(Model model) {
+        model.addAttribute("dbConfigList", dbConfigBusiness.getAutoDbInfoList());
         return "db/db_list";
     }
+
     /**
      * Method:
      * Description: 获取所有对应数据库所有表信息
+     *
+     * @param model
+     * @param dbConfig
+     * @return java.lang.String
      * @Author panying
      * @Data 2018/7/9 上午10:10
-     * @param model
-    * @param dbConfig
-     * @return java.lang.String
      */
 
-    @RequestMapping(method=RequestMethod.GET)
-    public String tablelist(Model model, DbconfigInfo dbConfig){
+    @RequestMapping(method = RequestMethod.GET)
+    public String tablelist(Model model, DbconfigInfo dbConfig) {
         List<TableInfo> tableList = dbConfigBusiness.getAllTables(dbConfig);
         model.addAttribute("dbConfig", dbConfig);
         model.addAttribute("tableList", tableList);
         return "db/table_list";
     }
-     /* Method:
-     * Description:
-     * @Author panying
-     * @Data 2018/7/9 下午3:37
-     * @param model
-    * @param dbConfig
-    * @param tableName
+
+    /**
+     *操作指定表
+     * @param
      * @return java.lang.String
+     * @author py
+     * @date  8:14 PM
+     * @exception
      */
-    @RequestMapping(value="/{tableName}", method =RequestMethod.GET)
-    public String itemList(Model model, DbconfigInfo dbconfigInfo, @PathVariable String tableName){
-        TableInfo tableInfo = dbConfigBusiness.getAllColumns(tableName,dbconfigInfo);
+    @RequestMapping(value = "/{tableName}", method = RequestMethod.GET)
+    public String itemList(Model model, DbconfigInfo dbconfigInfo, @PathVariable String tableName) {
+        TableInfo tableInfo = dbConfigBusiness.getAllColumns(tableName, dbconfigInfo);
         model.addAttribute("tableInfo", tableInfo);
         model.addAttribute("dbConfig", dbconfigInfo);
         return "db/column_list";
     }
+
     /**
      * 保存配置信息
      */
-    @RequestMapping(method=RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String save(Model model, DbconfigInfo dbconfigInfo, TableInfo tableInfo){
+    public String save(Model model, DbconfigInfo dbconfigInfo, TableInfo tableInfo) {
         String[] arrRemark = request.getParameterValues("remarks");
         List<ColumnInfo> listItem = new ArrayList<ColumnInfo>();
-        for(String remark:arrRemark){
+        for (String remark : arrRemark) {
             System.out.println(remark);
             String[] mark = remark.split("@");
             ColumnInfo item = new ColumnInfo();
@@ -95,9 +100,8 @@ public class InitCodeController extends BaseController{
             listItem.add(item);
         }
         tableInfo.setListColumn(listItem);
-        dbConfigBusiness.saveComment(tableInfo,dbconfigInfo);
+        dbConfigBusiness.saveComment(tableInfo, dbconfigInfo);
         return "200";
-//        return "redirect:/initcode/"+tableInfo.getTableName()+"?url="+dbconfigInfo.getUrl()+"&driver="+dbconfigInfo.getDriver()+"&username="+dbconfigInfo.getUsername()+"&password="+dbconfigInfo.getPassword()+"&schema="+dbconfigInfo.getSchema();
     }
 
 }

@@ -3,6 +3,7 @@
  */
 
 package ${basepackage}.service.dao;
+import com.maxim.anepoch.common.base.query.BasicQuery;
 
 import java.util.List;
 
@@ -13,13 +14,11 @@ public interface BaseMapper<T> {
 
     int update(T var1);
 
-    T getById(Object var1);
-
     T selectOne(T var1);
 
     List<T> selectList(T var1);
 
-    List<T> selectAllByPage(T var1);
+    List<T> selectListByPage(BasicQuery query);
 
-    int findAllCount();
+    int getTotleCountByConditions(T var1);
 }

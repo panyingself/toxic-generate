@@ -118,18 +118,8 @@
 		UPDATE ${table.sqlName} SET delete_flag = 1
 		<include refid="list${className}Where"/>
 	</delete>
-    
-    <select id="getById" resultMap="${classNameFirstLower}ResultMap">
-		SELECT <include refid="${className}Columns" />
-	    <![CDATA[
-		    FROM ${table.sqlName} 
-	        WHERE 
-				<#list table.compositeIdColumns as column>
-		        ${column.sqlName} = <@mapperEl 'id'/> <#if column_has_next> AND </#if>
-		        </#list>
-	    ]]>
-	</select>
-	
+
+	<!--sql where查询条件定义-->
 	<sql id="list${className}Where">
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
 		<where>      				
@@ -140,22 +130,20 @@
 	       	</#list>		
 		</where>
 	</sql>
-		
-    <select id="getCount${className}" resultType="int">
-        SELECT count(*) FROM ${table.sqlName} 
-		<include refid="list${className}Where"/>
-    </select>
-    
+
     <!--
     	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
     	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
+
+	<!--全量查询-->
     <select id="selectList" resultMap="${classNameFirstLower}ResultMap">
     	SELECT <include refid="${className}Columns" /> FROM ${table.sqlName}
 		<include refid="list${className}Where"/>
     </select>
 
-	<select id="selectAllByPage"  resultMap="${classNameFirstLower}ResultMap" parameterType="java.util.HashMap">
+	<!--分页查询-->
+	<select id="selectListByPage"  resultMap="${classNameFirstLower}ResultMap" parameterType="java.util.HashMap">
 		SELECT
 		<include refid="${className}Columns" />
 		FROM ${table.sqlName}
@@ -164,7 +152,6 @@
 		<include refid="limit"/>
 	</select>
 
-
 	<!--该方法适用于，获取的数据条数小于等于1 如有特殊需要自己实现-->
 	<select id="selectOne" resultMap="${classNameFirstLower}ResultMap">
 		SELECT <include refid="${className}Columns" />
@@ -172,9 +159,10 @@
 		<include refid="list${className}Where"/>
 	</select>
 
-	<select id="findAllCount" resultType="int">
-		select count(*)
-			from ${table.sqlName}
+	<!--根据条件获取record记录总数-->
+	<select id="getTotleCountByConditions" resultType="int">
+		SELECT count(*) FROM ${table.sqlName}
+		<include refid="list${className}Where"/>
 	</select>
 
 </mapper>

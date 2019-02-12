@@ -14,5 +14,10 @@ import ${basepackage}.service.bean.*;
 import com.maxim.anepoch.common.base.query.BasicQuery;
 
 public interface ${className}Service extends BaseService<${className}, Long>{
-		List<${className}> findAllByPage(BasicQuery basicQuery);
+
+		List<${className}> queryList(${className} ${classNameFirstLower});
+
+		List<${className}> queryListByPage(BasicQuery query);
+
+		int queryCountByConditions(${className} ${classNameFirstLower});
 }
