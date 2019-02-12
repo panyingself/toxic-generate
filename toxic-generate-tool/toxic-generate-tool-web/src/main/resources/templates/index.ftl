@@ -17,9 +17,9 @@
         <div class="layui-logo">代码生成管理平台</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">快捷</a></li>
-            <li class="layui-nav-item"><a href="">代扣</a></li>
-            <li class="layui-nav-item"><a href="">鉴权</a></li>
+            <li class="layui-nav-item"><a href="">产品一</a></li>
+            <li class="layui-nav-item"><a href="">产品二</a></li>
+            <li class="layui-nav-item"><a href="">产品三</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">其它产品</a>
                 <dl class="layui-nav-child">
