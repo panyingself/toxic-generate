@@ -2,7 +2,7 @@
  * Copyright (c) 2018. Toxic
  */
 
-package com.toxic.generate.tool.controller;
+package com.toxic.generate.tool.controller.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;

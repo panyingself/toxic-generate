@@ -2,17 +2,17 @@
  * Copyright (c) 2018. Toxic
  */
 
-/*
- * Web Site: http://www.reapal.com
- * Since 2014 - 2018
- */
-
 package com.toxic.generate.tool.model.query;
 
 import com.toxic.generate.tool.model.AutoDbInfo;
-import com.toxic.generate.tool.model.*;
 
-
+/**
+ * Title:
+ * Description:
+ *
+ * @author py
+ * @date 2018/7/9 上午10:05.
+ */
 public class AutoDbInfoQuery extends AutoDbInfo {
 	private static final long serialVersionUID = 1L;
 	

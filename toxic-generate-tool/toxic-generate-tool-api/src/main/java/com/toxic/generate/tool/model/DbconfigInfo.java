@@ -18,19 +18,19 @@ public class DbconfigInfo implements Serializable {
     /**
      * 地址信息
      */
-    private String url = "";
+    private String url;
     /**
      * 驱动信息
      */
-    private String driver = "";
+    private String driver;
     /**
      * 数据库用户名
      */
-    private String username = "";
+    private String username;
     /**
      * 数据库密码
      */
-    private String password = "";
+    private String password;
     /**
      * 数据库schema
      */

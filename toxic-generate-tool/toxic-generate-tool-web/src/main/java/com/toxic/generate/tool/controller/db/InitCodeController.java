@@ -2,9 +2,10 @@
  * Copyright (c) 2018. Toxic
  */
 
-package com.toxic.generate.tool.controller;
+package com.toxic.generate.tool.controller.db;
 
 import com.toxic.generate.tool.business.DbConfigBusiness;
+import com.toxic.generate.tool.controller.base.BaseController;
 import com.toxic.generate.tool.model.ColumnInfo;
 import com.toxic.generate.tool.model.DbconfigInfo;
 import com.toxic.generate.tool.model.TableInfo;

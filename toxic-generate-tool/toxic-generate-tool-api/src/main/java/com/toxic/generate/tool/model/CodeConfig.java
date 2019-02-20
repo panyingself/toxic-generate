@@ -34,6 +34,9 @@ public class CodeConfig implements Serializable {
     private String path_html5;
 
     /*表配置*/
+    /**
+     *
+     */
     private String outRoot;
     private String templateName;
 

@@ -6,9 +6,9 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
     <link rel="stylesheet" href="http://res.layui.com/layui/dist/css/modules/layer/default/layer.css?v=3.1.1">
-    <#--<link rel="stylesheet" href="layui/css/modules/layer/default/layer.css">-->
+<#--<link rel="stylesheet" href="layui/css/modules/layer/default/layer.css">-->
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body class="layui-layout-body">
@@ -47,7 +47,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">功能分组</a>
                     <dl class="layui-nav-child">
@@ -62,12 +62,12 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;" id="api-main">
             <!--内容主体区域 body-->
-            <#--<div class="layui-collapse" lay-accordion>-->
-                <#--<div class="layui-colla-item">-->
-                    <#--<h2 class="layui-colla-title">接口名称</h2>-->
-                    <#--<div class="layui-colla-content layui-show">内容区域</div>-->
-                <#--</div>-->
-            <#--</div>-->
+        <#--<div class="layui-collapse" lay-accordion>-->
+        <#--<div class="layui-colla-item">-->
+        <#--<h2 class="layui-colla-title">接口名称</h2>-->
+        <#--<div class="layui-colla-content layui-show">内容区域</div>-->
+        <#--</div>-->
+        <#--</div>-->
             <!--内容主体区域end-->
         </div>
     </div>

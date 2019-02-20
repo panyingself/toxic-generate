@@ -2,11 +2,6 @@
  * Copyright (c) 2018. Toxic
  */
 
-/*
- * Web Site: http://www.reapal.com
- * Since 2014 - 2018
- */
-
 package com.toxic.generate.tool.model;
 
 import java.io.Serializable;

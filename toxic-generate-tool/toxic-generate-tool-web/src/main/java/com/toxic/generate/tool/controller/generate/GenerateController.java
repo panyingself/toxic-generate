@@ -5,7 +5,7 @@
 package com.toxic.generate.tool.controller.generate;
 
 import com.toxic.generate.tool.business.GenerateBusiness;
-import com.toxic.generate.tool.controller.BaseController;
+import com.toxic.generate.tool.controller.base.BaseController;
 import com.toxic.generate.tool.model.CodeConfig;
 import com.toxic.generate.tool.model.DbconfigInfo;
 import com.toxic.generate.tool.model.TableInfo;
