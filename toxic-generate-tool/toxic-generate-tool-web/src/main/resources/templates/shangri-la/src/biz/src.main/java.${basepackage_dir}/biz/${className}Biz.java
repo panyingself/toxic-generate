@@ -1,6 +1,5 @@
 <#include "/custom.include">
-<#include "/java_copyright.include">
-<#assign className = table.className>   
+<#assign className = table.className>
 <#assign classNameFirstLower = className?uncap_first>   
 <#assign classNameLowerCase = className?lower_case>   
 <#assign pkJavaType = table.idColumn.javaType>   
@@ -8,8 +7,13 @@
 package ${basepackage}.biz;
 
 import ${basepackage}.service.bean.${className};
-import com.maxim.anepoch.common.base.ListResult;
+import java.util.List;
 
+
+/**
+ * @author py
+ * @date 2019/4
+ */
 public interface ${className}Biz {
 		/**
 		 * 新增${className}
@@ -26,14 +30,11 @@ public interface ${className}Biz {
 		 * @return
 		 */
 		boolean edit(${className} ${classNameFirstLower});
-
 		/**
-		 * 查询${className}
-		 * @param currentPage
-		 * @param pageSize
+		 * 查询${className}集合
+		 * @param ${classNameFirstLower}
 		 * @return
 		 */
-		ListResult<${className}> findAll(Integer currentPage, Integer pageSize);
-
+		List<${className}> queryList(${className} ${classNameFirstLower});
 }
 

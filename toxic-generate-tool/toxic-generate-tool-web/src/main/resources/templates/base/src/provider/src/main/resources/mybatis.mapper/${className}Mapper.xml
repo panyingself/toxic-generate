@@ -42,14 +42,14 @@
         ) VALUES (
         <#list table.columns as column>
         	<#if column.sqlName?upper_case == "MODIFY_DATE_TIME" || column.sqlName?upper_case == "CREATE_DATE_TIME" >
-        	
+
         	<#if dbType=="oracle">sysdate<#else>now()</#if><#if column_has_next>,</#if>
         	<#elseif column.sqlName?upper_case == "DELETE_FLAG">
         	'1'<#if column_has_next>,</#if>
         	<#else>
         	<@mapperEl column.columnNameFirstLower+",jdbcType="+column.jdbcSqlTypeName /><#if column_has_next>,</#if>
         	</#if>
-        </#list>        
+        </#list>
         )
     ]]>
 		<!--

@@ -1,6 +1,5 @@
 <#include "/custom.include">
-<#include "/java_copyright.include">
-<#assign className = table.className>   
+<#assign className = table.className>
 <#assign classNameFirstLower = className?uncap_first>   
 <#assign classNameLowerCase = className?lower_case>   
 <#assign pkJavaType = table.idColumn.javaType>   

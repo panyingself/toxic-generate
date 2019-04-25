@@ -1,13 +1,15 @@
 <#include "/macro.include"/>
-<#include "/java_copyright.include">
-<#assign className = table.className>   
+<#assign className = table.className>
 <#assign classNameFirstLower = className?uncap_first>
 <#assign classNameLowerCase = className?lower_case>
 package ${basepackage}.bean;
 
 import java.io.Serializable;
 
-
+/**
+ * @author py
+ * @date 2019/4
+ */
 public class ${className} implements Serializable {
     private static final long serialVersionUID = 3148176768559230877L;
     

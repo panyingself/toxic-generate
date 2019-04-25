@@ -91,7 +91,7 @@
 			</#list>
         </trim>
 	</insert>
-    
+
 	<update id="update" >
         UPDATE ${table.sqlName} SET
 	        <#list table.notPkColumns as column>
@@ -157,6 +157,7 @@
 		SELECT <include refid="${className}Columns" />
 		FROM ${table.sqlName}
 		<include refid="list${className}Where"/>
+		limit 1
 	</select>
 
 	<!--根据条件获取record记录总数-->
